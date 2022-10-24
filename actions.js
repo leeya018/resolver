@@ -25,9 +25,15 @@ export const resetCount = (number) => ({
   payload: { number },
 });
 
-export const addTodo = (name) => ({
+export const addTodo = (todo) => ({
   type: types.ADD_TODO,
-  payload: { id: Date.now(), name, done: false },
+
+  payload: {
+    id: Date.now(),
+    name: todo.name,
+    solutions: todo.solutions,
+    done: false,
+  },
 });
 
 export const toggle = (id) => ({ type: types.TOGGLE_TODO, payload: { id } });
