@@ -1,8 +1,40 @@
 import { combineReducers } from "redux";
 import * as types from "./types";
 
+const chosenTodo = (state = null, { type, payload }) => {
+  switch (type) {
+    case types.UPDATE_CHOSEN:
+      // console.log("I just got invorke");
+      return payload;
+      break;
+
+    default:
+      return state;
+      break;
+  }
+};
+
+const initialTodos = [
+  {
+    name: "get an error . but dont know what to do ",
+    solutions: [
+      "check where is the error come from ",
+      "if you are not sure , click on the error to get lead to the page",
+      "check what that menan",
+      "what was the last change that cause that ",
+      "find soltions online to the problem ",
+      "check with Avi ",
+      "be confidence in your self , you are finding solutions to something that next time  , will take a sec for you  ",
+      "I believe in you , only believe in your self ,",
+    ],
+  },
+  {
+    name: "collect",
+    solutions: ["hello world", "connect"],
+  },
+];
 // TODO REDUCER
-const todoReducer = (state = [], { type, payload }) => {
+const todoReducer = (state = initialTodos, { type, payload }) => {
   switch (type) {
     case types.ADD_TODO:
       return [...state, payload];
@@ -87,6 +119,7 @@ const reducers = {
   timer: timerReducer,
   todos: todoReducer,
   error: errorReducer,
+  chosen: chosenTodo,
 };
 
 export default combineReducers(reducers);

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import Todo from "../components/todo";
+import Filter from "../components/filter";
 
 export default function Index() {
   const todos = useSelector((state) => state.todos);
@@ -12,6 +13,7 @@ export default function Index() {
   return (
     <div>
       <Link href="/add">add</Link>
+      <Filter />
       <h1>todo list </h1>
       <div className="text-red-400">{error.todos}</div>
 
