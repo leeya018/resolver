@@ -3,4 +3,10 @@ const basicUrl =
     ? process.env.NEXT_PUBLIC_BASIC_URL
     : process.env.NEXT_PUBLIC_BASIC_REMOTE_URL;
 
-export { basicUrl };
+const methods = {
+  DELETE: "delete",
+  GET: "get",
+  PUT: "put",
+  POST: "post",
+};
+export { basicUrl, methods };

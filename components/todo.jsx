@@ -1,17 +1,13 @@
 import Solutions from "../components/solutions";
 import { remove, toggle } from "../actions";
 import useFetch from "@/hooks/useFetch";
-import { basicUrl } from "@/util";
+import { basicUrl, methods } from "@/util";
 export default function Todo({ todo, dispatch }) {
-  const {
-    success,
-    loading,
-    resetFetch,
-    error,
-    remove: deleteTodo,
-  } = useFetch(`${basicUrl}/api/todos/`);
+  const { success, loading, error, invoke } = useFetch(
+    `${basicUrl}/api/todos/`
+  );
   const removeTodo = async (id) => {
-    await deleteTodo(id);
+    await invoke(methods.DELETE, id);
     dispatch(remove(id));
   };
   return (

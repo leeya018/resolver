@@ -1,20 +1,44 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { methods } from "@/util";
+console.log({ methods });
 function useFetch(url = "/") {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const fetch = async (param = "") => {
+  const getData = async (method, param, payload) => {
+    console.log("i am in getData" + method, param, payload, url);
+    switch (method) {
+      case methods.GET:
+        return await axios.get(url + "" + param);
+        break;
+      case methods.POST:
+        return await axios.post(url + "" + param, payload);
+        break;
+      case methods.PUT:
+        return await axios.put(url + "" + param, payload);
+        break;
+      case methods.DELETE:
+        return await axios.delete(url + "" + param);
+        break;
+
+      default:
+        return null;
+        break;
+    }
+  };
+
+  const invoke = async (method, param = "", payload = {}) => {
     setData("");
     setError("");
     setSuccess(true);
     try {
       console.log({ url });
       setLoading(true);
-      const res = await axios.get(url + "" + param);
+      let res = await getData(method, param, payload);
+
       setData(res.data);
       setSuccess(true);
       setLoading(false);
@@ -23,57 +47,7 @@ function useFetch(url = "/") {
       console.log(error);
       setLoading(false);
       setSuccess(false);
-
-      //   setError("An error occurred. Awkward..");
-      setError(error.response.data);
-      throw error;
-    }
-  };
-
-  const send = async (payload = {}, param = "") => {
-    setLoading(true);
-    setSuccess(false);
-    setData("");
-    setError("");
-    try {
-      console.log({ url });
-      const res = await axios.post(url + "" + param, payload);
-      console.log({ item: res.data });
-      setData(res.data);
-      setSuccess(true);
-      setLoading(false);
-      return res.data;
-    } catch (error) {
-      console.log(error.response.data);
-
-      setLoading(false);
-      setSuccess(false);
-      setError(error.response.data);
-
-      throw error;
-    }
-  };
-
-  const remove = async (param = "") => {
-    setLoading(true);
-    setSuccess(false);
-    setData("");
-    setError("");
-    try {
-      console.log({ url });
-      const res = await axios.delete(url + "" + param);
-      console.log({ item: res.data });
-      setData(res.data);
-      setSuccess(true);
-      setLoading(false);
-      return res.data;
-    } catch (error) {
-      console.log(error.response.data);
-
-      setLoading(false);
-      setSuccess(false);
-      setError(error.response.data);
-
+      setError(error.response);
       throw error;
     }
   };
@@ -84,6 +58,6 @@ function useFetch(url = "/") {
     setError("");
     setSuccess(false);
   };
-  return { data, fetch, resetFetch, send, loading, error, success, remove };
+  return { data, resetFetch, loading, error, success, invoke };
 }
 export default useFetch;

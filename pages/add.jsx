@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import Link from "next/link";
 import Solutions from "../components/solutions";
 import useFetch from "@/hooks/useFetch";
-import { basicUrl } from "@/util";
+import { basicUrl, methods } from "@/util";
 
 const getRandWord = () => {
   const abc = ["A", "B", "C", "Y", "Z"];
@@ -21,21 +21,16 @@ export default function Add({}) {
   const [sol, setSol] = useState("");
   const [solutions, setSolutions] = useState([]);
   const dispatch = useDispatch();
-  const {
-    send: sendTodo,
-    success,
-    loading,
-    resetFetch,
-    error,
-  } = useFetch(`${basicUrl}/api/todos`);
-  console.log(`${basicUrl}/api/todos`);
+  const { invoke, success, loading, resetFetch, error } = useFetch(
+    `${basicUrl}/api/todos`
+  );
   const handleClick = async () => {
     if (!name) {
       dispatch(todosError("todo cannot be empty"));
       return;
     }
     dispatch(addTodo({ name, solutions }));
-    await sendTodo({ name, solutions });
+    await invoke(methods.POST, "", { name, solutions });
     setName("");
     setSolutions([]);
     setSol("");

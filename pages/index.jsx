@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import Todo from "../components/todo";
 import Filter from "../components/filter";
-import { basicUrl } from "@/util";
+import { basicUrl, methods } from "@/util";
 import useFetch from "@/hooks/useFetch";
 import { initData } from "../actions";
 export default function Index() {
@@ -11,15 +11,10 @@ export default function Index() {
   const error = useSelector((state) => state.error);
 
   const dispatch = useDispatch();
-  const {
-    success,
-    data,
-    loading,
-    fetch: fetchTodos,
-  } = useFetch(`${basicUrl}/api/todos`);
+  const { success, data, loading, invoke } = useFetch(`${basicUrl}/api/todos`);
 
   useEffect(() => {
-    fetchTodos();
+    invoke(methods.GET);
   }, []);
 
   useEffect(() => {
