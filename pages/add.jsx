@@ -65,8 +65,8 @@ export default function Add({}) {
       <div>
         <h2>status </h2>
         {loading && <div className="text-gray-500">loading...</div>}
-        {error && <div className="text-red-500">{error}</div>}
         {success && <div className="text-green-500">done has added to db</div>}
+        {error && <div className="text-red-500">{error}</div>}
       </div>
       <h1>add item </h1>
       <label htmlFor="">name - </label>

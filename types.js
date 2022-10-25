@@ -9,3 +9,4 @@ export const REMOVE_TODO = "remove_todo";
 export const COUNTER_ERROR = "counter-error";
 export const TODOS_ERROR = "todos-error";
 export const UPDATE_CHOSEN = "update-chosen";
+export const INIT_DATA = "init-data";

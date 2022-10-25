@@ -36,6 +36,9 @@ const initialTodos = [
 // TODO REDUCER
 const todoReducer = (state = initialTodos, { type, payload }) => {
   switch (type) {
+    case types.INIT_DATA:
+      return payload;
+      break;
     case types.ADD_TODO:
       return [...state, payload];
       break;

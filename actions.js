@@ -53,3 +53,8 @@ export const updateChosen = (data) => ({
   type: types.UPDATE_CHOSEN,
   payload: data,
 });
+
+export const initData = (data) => ({
+  type: types.INIT_DATA,
+  payload: data,
+});
