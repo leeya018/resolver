@@ -2,9 +2,10 @@ import { useState } from "react";
 import { addTodo, todosError } from "../actions";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
-import Solutions from "../components/solutions";
+import Solutions from "../features/solutions";
 import useFetch from "@/hooks/useFetch";
 import { basicUrl, methods } from "@/util";
+import MyLink from "components/myLink";
 
 const getRandWord = () => {
   const abc = ["A", "B", "C", "Y", "Z"];
@@ -56,7 +57,7 @@ export default function Add({}) {
   };
   return (
     <div>
-      <Link href="/">list</Link>
+      <MyLink location={"/"} text={"list"} />
       <div>
         <h2>status </h2>
         {loading && <div className="text-gray-500">loading...</div>}

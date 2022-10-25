@@ -17,18 +17,20 @@ export default function Filter({}) {
     router.push("/chosen");
   };
   return (
-    <div>
-      <h4> Filter for the data : </h4>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => {
-          //   dispatch(todosError(""));
-          setName(e.target.value);
-        }}
-      />
+    <div className="">
+      <div className=" flex justify-center"> Filter for the data : </div>
+      <div className="flex w-full border-blue-500">
+        <input
+          className="bg-red-400"
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+      </div>
       <div>
-        <h5>names : </h5>
+        <h5 className="bg-purple-400">names : </h5>
         <ul>
           {names
             .filter((n) => n.includes(name))

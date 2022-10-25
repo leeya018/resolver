@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import MyLink from "components/myLink";
 
 export default function Chosen({}) {
   const chosen = useSelector((state) => state.chosen);
@@ -16,6 +17,8 @@ export default function Chosen({}) {
   const { name, solutions } = chosen || {};
   return (
     <div>
+      <MyLink location={"/"} text={"list"} />
+      <h1>chosen</h1>
       <div>{name}</div>
       <button onClick={() => setIndex((prev) => prev + 1)}>
         {`${index < 0 ? "show solution" : "show next solution"}`}

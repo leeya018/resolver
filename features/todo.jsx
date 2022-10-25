@@ -1,4 +1,4 @@
-import Solutions from "../components/solutions";
+import Solutions from "./solutions";
 import { remove, toggle } from "../actions";
 import useFetch from "@/hooks/useFetch";
 import { basicUrl, methods } from "@/util";

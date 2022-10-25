@@ -24,7 +24,6 @@ handler.post(async (req, res) => {
 });
 
 handler.delete(async (req, res) => {
-  console.log("=============================");
   const { query } = req;
 
   console.log(query);
