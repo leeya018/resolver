@@ -3,8 +3,8 @@ export default function Solutions({ solutions }) {
     <div>
       <h1>all the solutions: </h1>
       <ul>
-        {solutions.map((sol) => (
-          <li>{sol}</li>
+        {solutions.map((sol, key) => (
+          <li key={key}>{sol}</li>
         ))}
       </ul>
     </div>

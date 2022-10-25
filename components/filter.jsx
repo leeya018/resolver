@@ -32,8 +32,10 @@ export default function Filter({}) {
         <ul>
           {names
             .filter((n) => n.includes(name))
-            .map((n) => (
-              <li onClick={() => updateChosenOne(n)}>{n}</li>
+            .map((n, key) => (
+              <li key={key} onClick={() => updateChosenOne(n)}>
+                {n}
+              </li>
             ))}
         </ul>
       </div>
