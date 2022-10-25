@@ -34,7 +34,7 @@ const initialTodos = [
   },
 ];
 // TODO REDUCER
-const todoReducer = (state = initialTodos, { type, payload }) => {
+const todoReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.INIT_DATA:
       return payload;
@@ -44,14 +44,14 @@ const todoReducer = (state = initialTodos, { type, payload }) => {
       break;
     case types.TOGGLE_TODO:
       return state.map((todo) => {
-        if (todo.id === payload.id) {
+        if (todo._id === payload.id) {
           return { ...todo, done: !todo.done };
         }
         return todo;
       });
       break;
     case types.REMOVE_TODO:
-      return state.filter((todo) => todo.id !== payload.id);
+      return state.filter((todo) => todo._id !== payload.id);
       break;
 
     default:

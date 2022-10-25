@@ -54,12 +54,36 @@ function useFetch(url = "/") {
     }
   };
 
+  const remove = async (param = "") => {
+    setLoading(true);
+    setSuccess(false);
+    setData("");
+    setError("");
+    try {
+      console.log({ url });
+      const res = await axios.delete(url + "" + param);
+      console.log({ item: res.data });
+      setData(res.data);
+      setSuccess(true);
+      setLoading(false);
+      return res.data;
+    } catch (error) {
+      console.log(error.response.data);
+
+      setLoading(false);
+      setSuccess(false);
+      setError(error.response.data);
+
+      throw error;
+    }
+  };
+
   const resetFetch = () => {
     setData("");
     setLoading(false);
     setError("");
     setSuccess(false);
   };
-  return { data, fetch, resetFetch, send, loading, error, success };
+  return { data, fetch, resetFetch, send, loading, error, success, remove };
 }
 export default useFetch;
