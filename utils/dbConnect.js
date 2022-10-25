@@ -9,7 +9,7 @@ const mongoUrl =
   process.env.NODE_ENV === "development"
     ? process.env.MONGO_URI
     : process.env.MONGO_REMOTE_URL;
-
+// console.log({ mongoUrl });
 const dbConnect = async () => {
   mongoose.connect(
     mongoUrl,
