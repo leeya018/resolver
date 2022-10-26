@@ -18,4 +18,24 @@ handler.delete(async (req, res) => {
   }
 });
 
+handler.get(async (req, res) => {
+  const { id } = req?.query;
+  try {
+    const todo = await Todo.findOne({ _id: id });
+    res.status(200).json(todo);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+handler.put(async (req, res) => {
+  const { id } = req?.query;
+  try {
+    const todo = await Todo.findOneAndUpdate({ _id: id }, req.body);
+    res.status(200).json({ message: "data got updated" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 export default handler;

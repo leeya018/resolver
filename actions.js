@@ -58,3 +58,8 @@ export const initData = (data) => ({
   type: types.INIT_DATA,
   payload: data,
 });
+
+export const updateTodo = (data) => ({
+  type: types.UPDATE_TODO,
+  payload: data,
+});

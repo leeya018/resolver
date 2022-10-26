@@ -57,7 +57,7 @@ export default function Add({}) {
   };
   return (
     <div>
-      <MyLink location={"/"} text={"list"} />
+      <MyLink location={"/todos"} text={"list"} />
       <div>
         <h2>status </h2>
         {loading && <div className="text-gray-500">loading...</div>}

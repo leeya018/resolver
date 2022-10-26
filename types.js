@@ -10,3 +10,4 @@ export const COUNTER_ERROR = "counter-error";
 export const TODOS_ERROR = "todos-error";
 export const UPDATE_CHOSEN = "update-chosen";
 export const INIT_DATA = "init-data";
+export const UPDATE_TODO = "update-todo";

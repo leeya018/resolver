@@ -42,6 +42,14 @@ const todoReducer = (state = [], { type, payload }) => {
     case types.ADD_TODO:
       return [...state, payload];
       break;
+    case types.UPDATE_TODO:
+      return state.map((todo) => {
+        if (todo._id === payload._id) {
+          return payload;
+        }
+        return todo;
+      });
+      break;
     case types.TOGGLE_TODO:
       return state.map((todo) => {
         if (todo._id === payload.id) {

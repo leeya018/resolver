@@ -1,23 +1,27 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import MyLink from "components/myLink";
+import { basicUrl } from "@/util";
 
-export default function Chosen({}) {
-  const chosen = useSelector((state) => state.chosen);
+import axios from "axios";
+export default function Todo({ todo }) {
   const [index, setIndex] = useState(-1);
   const router = useRouter();
   useEffect(() => {
-    if (!chosen) {
+    if (!todo) {
       router.push("/");
     }
   }, []);
 
-  //   console.log(chosen);
-  const { name, solutions } = chosen || {};
+  const handleEdit = () => {
+    router.push(`/todos/edit/${todo._id}`);
+  };
+  console.log({ todo });
+  const { name, solutions } = todo || {};
   return (
     <div>
-      <MyLink location={"/"} text={"list"} />
+      <MyLink location={"/todos"} text={"list"} />
+      <button onClick={handleEdit}>Edit</button>
       <h1>chosen</h1>
       <div>{name}</div>
       <button onClick={() => setIndex((prev) => prev + 1)}>
@@ -30,3 +34,12 @@ export default function Chosen({}) {
     </div>
   );
 }
+
+export const getServerSideProps = async ({ params }) => {
+  try {
+    const res = await axios.get(`${basicUrl}/api/todos/${params.id}`);
+    return { props: { todo: res.data } };
+  } catch (error) {
+    throw error;
+  }
+};
