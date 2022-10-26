@@ -12,7 +12,7 @@ export default function Edit({ todoServer }) {
   const dispatch = useDispatch();
   const [todo, setTodo] = useState(todoServer);
   const [solution, setSolution] = useState("");
-  const { success, data, loading, invoke } = useFetch(`${basicUrl}/api/todos/`);
+  const { error, success, data, loading, invoke } = useFetch();
   const router = useRouter();
   useEffect(() => {
     if (!todo) {
@@ -26,12 +26,12 @@ export default function Edit({ todoServer }) {
     console.log(newTodo);
     setTodo(newTodo);
     dispatch(updateTodo(newTodo));
-    await invoke(methods.PUT, newTodo._id, newTodo);
+    await invoke(methods.PUT, `${basicUrl}/api/todos/${newTodo._id}`, newTodo);
   };
 
   const handleRemoveTodo = async () => {
     dispatch(remove(todo._id));
-    await invoke(methods.DELETE, todo._id);
+    await invoke(methods.DELETE, `${basicUrl}/api/todos/${todo._id}`);
     router.push("/");
   };
 
@@ -85,6 +85,7 @@ export default function Edit({ todoServer }) {
           </div>
         )}
       </div>
+      {error && <div className="text-red-400">{erro}</div>}
     </div>
   );
 }

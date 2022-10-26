@@ -13,7 +13,6 @@ const mongoUrl =
 const dbConnect = async () => {
   mongoose.connect(
     mongoUrl,
-    // "mongodb://localhost:27017/womenests",
     {
       useNewUrlParser: true,
     },

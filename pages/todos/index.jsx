@@ -13,10 +13,10 @@ export default function Index() {
   const error = useSelector((state) => state.error);
 
   const dispatch = useDispatch();
-  const { success, data, loading, invoke } = useFetch(`${basicUrl}/api/todos`);
+  const { success, data, loading, invoke } = useFetch();
   const [displayList, setDisplayList] = useState(false);
   useEffect(() => {
-    invoke(methods.GET);
+    invoke(methods.GET, `${basicUrl}/api/todos`);
   }, []);
 
   useEffect(() => {

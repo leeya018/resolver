@@ -22,16 +22,14 @@ export default function Add({}) {
   const [sol, setSol] = useState("");
   const [solutions, setSolutions] = useState([]);
   const dispatch = useDispatch();
-  const { invoke, success, loading, resetFetch, error } = useFetch(
-    `${basicUrl}/api/todos`
-  );
+  const { invoke, success, loading, resetFetch, error } = useFetch();
   const handleClick = async () => {
     if (!name) {
       dispatch(todosError("todo cannot be empty"));
       return;
     }
     dispatch(addTodo({ name, solutions }));
-    await invoke(methods.POST, "", { name, solutions });
+    await invoke(methods.POST, `${basicUrl}/api/todos`, { name, solutions });
     setName("");
     setSolutions([]);
     setSol("");

@@ -2,26 +2,26 @@ import { useState } from "react";
 import axios from "axios";
 import { methods } from "@/util";
 console.log({ methods });
-function useFetch(url = "/") {
+function useFetch() {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const getData = async (method, param, payload) => {
-    console.log("i am in getData" + method, param, payload, url);
+  const getData = async (method, url, payload) => {
+    console.log("i am in getData" + method, payload, url);
     switch (method) {
       case methods.GET:
-        return await axios.get(url + "" + param);
+        return await axios.get(url);
         break;
       case methods.POST:
-        return await axios.post(url + "" + param, payload);
+        return await axios.post(url, payload);
         break;
       case methods.PUT:
-        return await axios.put(url + "" + param, payload);
+        return await axios.put(url, payload);
         break;
       case methods.DELETE:
-        return await axios.delete(url + "" + param);
+        return await axios.delete(url);
         break;
 
       default:
@@ -30,14 +30,14 @@ function useFetch(url = "/") {
     }
   };
 
-  const invoke = async (method, param = "", payload = {}) => {
+  const invoke = async (method, url, payload = {}) => {
     setData("");
     setError("");
     setSuccess(true);
     try {
       console.log({ url });
       setLoading(true);
-      let res = await getData(method, param, payload);
+      let res = await getData(method, url, payload);
 
       setData(res.data);
       setSuccess(true);
