@@ -11,6 +11,7 @@ import { updateTodo, remove } from "@/actions";
 export default function Edit({ todoServer }) {
   const dispatch = useDispatch();
   const [todo, setTodo] = useState(todoServer);
+  const [solution, setSolution] = useState("");
   const { success, data, loading, invoke } = useFetch(`${basicUrl}/api/todos/`);
   const router = useRouter();
   useEffect(() => {
@@ -34,6 +35,14 @@ export default function Edit({ todoServer }) {
     router.push("/");
   };
 
+  const handleAddSolution = async () => {
+    let newTodo = { ...todo, solutions: [...todo.solutions, solution] };
+    setSolution("");
+    setTodo(newTodo);
+    dispatch(updateTodo(newTodo));
+    await invoke(methods.PUT, newTodo._id, newTodo);
+  };
+
   console.log({ todo });
   let { name, solutions } = todo || {};
   return (
@@ -44,11 +53,23 @@ export default function Edit({ todoServer }) {
         {todo && (
           <div>
             <div>{name}</div>
+            <div>
+              <input
+                type="text"
+                placeholder="add solution"
+                value={solution}
+                onChange={(e) => setSolution(e.target.value)}
+              />
+              {solution && (
+                <button onClick={handleAddSolution}>add solution</button>
+              )}
+            </div>
             {solutions.length === 0 && (
               <button className="bg-red-400" onClick={handleRemoveTodo}>
                 delete todo{" "}
               </button>
             )}
+
             <div>
               {solutions.map((solution, ind) => {
                 return (
