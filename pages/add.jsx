@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { addTodo, todosError } from "../actions";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import Solutions from "../features/solutions";
 import useFetch from "@/hooks/useFetch";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { basicUrl, methods } from "@/util";
 import MyLink from "components/myLink";
 
@@ -22,8 +23,17 @@ export default function Add({}) {
   const [sol, setSol] = useState("");
   const [solutions, setSolutions] = useState([]);
   const dispatch = useDispatch();
+  const [todoItem, setTodoItem] = useLocalStorage("todo");
+
   const inputRef = useRef(null);
   const { invoke, success, loading, resetFetch, error } = useFetch();
+
+  useEffect(() => {
+    if (todoItem) {
+      setName(todoItem.name);
+      setSolutions(todoItem.solutions);
+    }
+  }, []);
   const handleClick = async () => {
     if (!name) {
       dispatch(todosError("todo cannot be empty"));
@@ -34,13 +44,12 @@ export default function Add({}) {
     setName("");
     setSolutions([]);
     setSol("");
-    // let w = getRandWord();
-
-    // setName(w);
+    setTodoItem("");
   };
 
   const addSolution = () => {
     setSolutions((prev) => [...prev, sol]);
+    setTodoItem({ name, solutions: [...solutions, sol] });
     setSol("");
     inputRef.current.focus();
     console.log("got clitk");
@@ -53,7 +62,6 @@ export default function Add({}) {
   const reset = () => {
     resetFetch();
     setSol("");
-    setSolutions([]);
   };
   return (
     <div>
@@ -73,6 +81,7 @@ export default function Add({}) {
           reset();
           dispatch(todosError(""));
           setName(e.target.value);
+          setTodoItem({ name: e.target.value, solutions });
         }}
       />
       <div>
