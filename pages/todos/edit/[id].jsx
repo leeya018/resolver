@@ -11,6 +11,7 @@ import { updateTodo, remove } from "@/actions";
 export default function Edit({ todoServer }) {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  const addSolButtonRef = useRef(null);
 
   const [todo, setTodo] = useState(todoServer);
   const [solution, setSolution] = useState("");
@@ -20,6 +21,14 @@ export default function Edit({ todoServer }) {
     if (!todo) {
       router.push("/");
     }
+  }, []);
+  const addItem = (e) => {
+    if (e.key === "Enter") {
+      addSolButtonRef.current.click();
+    }
+  };
+  useEffect(() => {
+    inputRef.current.addEventListener("keypress", addItem);
   }, []);
 
   const handleRemoveSolution = async (ind) => {
@@ -38,6 +47,7 @@ export default function Edit({ todoServer }) {
   };
 
   const handleAddSolution = async () => {
+    console.log("handleAddSolution");
     let newTodo = { ...todo, solutions: [...todo.solutions, solution] };
     setSolution("");
     setTodo(newTodo);
@@ -46,11 +56,18 @@ export default function Edit({ todoServer }) {
     inputRef.current.focus();
   };
 
+  const navigate = () => {
+    inputRef.current.removeEventListener("keypress", addItem);
+
+    router.push("/todos");
+  };
   console.log({ todo });
   let { name, solutions } = todo || {};
   return (
     <div>
-      <MyLink location={"/todos"} text={"list"} />
+      <div className="text-purple-500" onClick={navigate}>
+        list
+      </div>
       <h1>Edit</h1>
       <div>
         {todo && (
@@ -64,9 +81,14 @@ export default function Edit({ todoServer }) {
                 value={solution}
                 onChange={(e) => setSolution(e.target.value)}
               />
-              {solution && (
-                <button onClick={handleAddSolution}>add solution</button>
-              )}
+
+              <button
+                ref={addSolButtonRef}
+                onClick={handleAddSolution}
+                // className={solution && "bg-green-500"}
+              >
+                add solution
+              </button>
             </div>
             {solutions.length === 0 && (
               <button className="bg-red-400" onClick={handleRemoveTodo}>

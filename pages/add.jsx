@@ -7,6 +7,7 @@ import useFetch from "@/hooks/useFetch";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { basicUrl, methods } from "@/util";
 import MyLink from "components/myLink";
+import { useRouter } from "next/router";
 
 const getRandWord = () => {
   const abc = ["A", "B", "C", "Y", "Z"];
@@ -24,8 +25,10 @@ export default function Add({}) {
   const [solutions, setSolutions] = useState([]);
   const dispatch = useDispatch();
   const [todoItem, setTodoItem] = useLocalStorage("todo");
+  const router = useRouter();
 
   const inputRef = useRef(null);
+  const addSolButtonRef = useRef(null);
   const { invoke, success, loading, resetFetch, error } = useFetch();
 
   useEffect(() => {
@@ -34,6 +37,16 @@ export default function Add({}) {
       setSolutions(todoItem.solutions);
     }
   }, []);
+
+  const addItem = (e) => {
+    if (e.key === "Enter") {
+      addSolButtonRef.current.click();
+    }
+  };
+  useEffect(() => {
+    inputRef.current.addEventListener("keypress", addItem);
+  }, [inputRef]);
+
   const handleClick = async () => {
     if (!name) {
       dispatch(todosError("todo cannot be empty"));
@@ -56,6 +69,7 @@ export default function Add({}) {
   };
 
   const updateSolution = (e) => {
+    console.log(e.target.value);
     setSol(e.target.value);
   };
 
@@ -63,9 +77,17 @@ export default function Add({}) {
     resetFetch();
     setSol("");
   };
+
+  const navigate = () => {
+    inputRef.current.removeEventListener("keypress", addItem);
+
+    router.push("/todos");
+  };
   return (
     <div>
-      <MyLink location={"/todos"} text={"list"} />
+      <div className="text-purple-500" onClick={navigate}>
+        list
+      </div>
       <div>
         <h2>status </h2>
         {loading && <div className="text-gray-500">loading...</div>}
@@ -94,6 +116,7 @@ export default function Add({}) {
           disabled={!name}
         />
         <button
+          ref={addSolButtonRef}
           onClick={addSolution}
           disabled={!name}
           className={`${!name || !sol ? "bg-gray-400" : "bg-green-400"} `}
