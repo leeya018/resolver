@@ -6,14 +6,8 @@ import { updateChosen } from "../actions";
 export default function Filter({}) {
   const [name, setName] = useState("");
   const todos = useSelector((state) => state.todos);
-  // const namesAndIds = todos.map((todo) => ({id:todo._id,name:todo.name}));
-  //   const [todoItems, setTodoItems] = useLocalStorage("todos");
   const router = useRouter();
-  const dispatch = useDispatch();
-  //   console.log(chosen);
   const updateChosenOne = (id) => {
-    // const chosen = todos.filter((todo) => todo.name === nameToFind);
-    // dispatch(updateChosen(chosen && chosen[0]));
     router.push(`/todos/${id}`);
   };
   return (
@@ -22,9 +16,10 @@ export default function Filter({}) {
         {" "}
         Filter for the data :{" "}
       </div>
-      <div className="flex w-full border-blue-500">
+      <div className="">
         <input
-          className="bg-red-400"
+          className="bg-red-400 w-full"
+          placeholder="find question"
           type="text"
           value={name}
           onChange={(e) => {
@@ -33,7 +28,7 @@ export default function Filter({}) {
         />
       </div>
       <div>
-        <h5 className="bg-purple-400">names : </h5>
+        <h5 className="bg-purple-400 flex items-center">names : </h5>
         <ul>
           {todos
             .filter((todo) => todo.name.includes(name))

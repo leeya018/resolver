@@ -27,10 +27,12 @@ export default function Index() {
 
   return (
     <div className="flex justify-center text-lg">
-      <h1 className="text-3xl font-bold underline bg-yellow-400">
-        Hello world!
-      </h1>
-      <div className="w-[50vh] mt-20">
+      {/* <div className="text-green-500 ">hdenhersnt</div>
+      <div className="text-yellow-500 ">hdenhersnt</div>
+      <div className="text-orange-300 bg-blue-500 ">hdenhersnt</div>
+      <div className="text-purple-800 ">hdenhersnt</div>
+      <div className="text-green-500 ">hdenhersnt</div> */}
+      <div className="w-[50vh] mt-20 ">
         <MyLink location={"/add"} text={"add"} />
         {loading && (
           <div className="text-gray-500 flex justify-center">loading...</div>
@@ -42,7 +44,7 @@ export default function Index() {
         )}
         <Filter />
         <h1>Resolver </h1>
-        <div className="text-red-400  flex justify-center">{error.todos}</div>
+        <div className="text-red-400 flex justify-center">{error.todos}</div>
 
         <div>
           <button onClick={() => setDisplayList((prev) => !prev)}>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { addTodo, todosError } from "../actions";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
@@ -22,6 +22,7 @@ export default function Add({}) {
   const [sol, setSol] = useState("");
   const [solutions, setSolutions] = useState([]);
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
   const { invoke, success, loading, resetFetch, error } = useFetch();
   const handleClick = async () => {
     if (!name) {
@@ -41,6 +42,7 @@ export default function Add({}) {
   const addSolution = () => {
     setSolutions((prev) => [...prev, sol]);
     setSol("");
+    inputRef.current.focus();
     console.log("got clitk");
   };
 
@@ -78,6 +80,7 @@ export default function Add({}) {
         <input
           type="text"
           value={sol}
+          ref={inputRef}
           onChange={updateSolution}
           disabled={!name}
         />
