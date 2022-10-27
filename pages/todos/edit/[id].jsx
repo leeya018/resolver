@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import MyLink from "components/myLink";
 import axios from "axios";
@@ -10,6 +10,8 @@ import { updateTodo, remove } from "@/actions";
 
 export default function Edit({ todoServer }) {
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
+
   const [todo, setTodo] = useState(todoServer);
   const [solution, setSolution] = useState("");
   const { error, success, data, loading, invoke } = useFetch();
@@ -41,6 +43,7 @@ export default function Edit({ todoServer }) {
     setTodo(newTodo);
     dispatch(updateTodo(newTodo));
     await invoke(methods.PUT, newTodo._id, newTodo);
+    inputRef.current.focus();
   };
 
   console.log({ todo });
@@ -57,6 +60,7 @@ export default function Edit({ todoServer }) {
               <input
                 type="text"
                 placeholder="add solution"
+                ref={inputRef}
                 value={solution}
                 onChange={(e) => setSolution(e.target.value)}
               />
