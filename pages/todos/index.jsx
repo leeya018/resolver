@@ -50,11 +50,13 @@ export default function Index() {
           <button onClick={() => setDisplayList((prev) => !prev)}>
             {displayList ? "hide" : "show"}
           </button>
-          {displayList &&
-            todos &&
-            todos.map((todo, key) => (
-              <Todo key={key} todo={todo} dispatch={dispatch} />
-            ))}
+          <div>
+            {displayList &&
+              todos &&
+              todos.map((todo, key) => (
+                <Todo key={key} todo={todo} dispatch={dispatch} />
+              ))}
+          </div>
         </div>
       </div>
     </div>

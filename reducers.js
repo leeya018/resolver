@@ -1,11 +1,10 @@
 import { combineReducers } from "redux";
 import * as types from "./types";
 
-const chosenTodo = (state = null, { type, payload }) => {
+const chosenReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case types.UPDATE_CHOSEN:
-      // console.log("I just got invorke");
-      return payload;
+      return payload.todo;
       break;
 
     default:
@@ -44,7 +43,7 @@ const todoReducer = (state = [], { type, payload }) => {
       break;
     case types.UPDATE_TODO:
       return state.map((todo) => {
-        if (todo._id === payload._id) {
+        if (todo._id === payload.id) {
           return payload;
         }
         return todo;
@@ -130,7 +129,7 @@ const reducers = {
   timer: timerReducer,
   todos: todoReducer,
   error: errorReducer,
-  chosen: chosenTodo,
+  chosen: chosenReducer,
 };
 
 export default combineReducers(reducers);

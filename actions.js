@@ -49,9 +49,9 @@ export const todosError = (text) => ({
   payload: { text },
 });
 
-export const updateChosen = (data) => ({
+export const updateChosen = (todo) => ({
   type: types.UPDATE_CHOSEN,
-  payload: data,
+  payload: { todo },
 });
 
 export const initData = (data) => ({
