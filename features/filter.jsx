@@ -14,7 +14,7 @@ export default function Filter({}) {
 
   // console.log({ chosen });
 
-  console.log({ todos });
+  console.log({ chosen: todos[ind] });
 
   const handleKeyDown = (e) => {
     console.log(e.key);
@@ -24,7 +24,6 @@ export default function Filter({}) {
         break;
       case "ArrowDown":
         setInd((prev) => (prev < todos.length - 1 ? prev + 1 : prev));
-        s;
         break;
       case "Enter":
         updateChosenOne(todos[ind]._id);
@@ -63,7 +62,8 @@ export default function Filter({}) {
             .filter((todo) => todo.name.includes(name))
             .map((todo, key) => (
               <li
-                className={`${todo._id === todos[ind]._id && "bg-gray-300"}`}
+                // className="bg-gray-300"
+                className={`${todo._id === todos[ind]._id && "bg-gray-400"}`}
                 key={key}
                 onClick={() => updateChosenOne(todo._id)}
               >
