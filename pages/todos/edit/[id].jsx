@@ -11,7 +11,6 @@ import { updateTodo, remove } from "@/actions";
 export default function Edit({ todoServer }) {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
-  const addSolButtonRef = useRef(null);
 
   const [todo, setTodo] = useState(todoServer);
   const [solution, setSolution] = useState("");
@@ -22,14 +21,11 @@ export default function Edit({ todoServer }) {
       router.push("/");
     }
   }, []);
-  const addItem = (e) => {
+  const addSolutionOnEnter = (e) => {
     if (e.key === "Enter") {
-      addSolButtonRef.current.click();
+      handleAddSolution();
     }
   };
-  useEffect(() => {
-    inputRef.current.addEventListener("keypress", addItem);
-  }, []);
 
   const handleRemoveSolution = async (ind) => {
     let newTodo = { ...todo };
@@ -57,8 +53,6 @@ export default function Edit({ todoServer }) {
   };
 
   const navigate = () => {
-    inputRef.current.removeEventListener("keypress", addItem);
-
     router.push("/todos");
   };
   console.log({ todo });
@@ -78,12 +72,12 @@ export default function Edit({ todoServer }) {
                 type="text"
                 placeholder="add solution"
                 ref={inputRef}
+                onKeyDown={addSolutionOnEnter}
                 value={solution}
                 onChange={(e) => setSolution(e.target.value)}
               />
 
               <button
-                ref={addSolButtonRef}
                 onClick={handleAddSolution}
                 // className={solution && "bg-green-500"}
               >
