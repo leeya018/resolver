@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { updateChosen } from "../actions";
@@ -6,36 +6,34 @@ import { updateChosen } from "../actions";
 export default function Filter({}) {
   const [name, setName] = useState("");
   const [ind, setInd] = useState(0);
-  const inputRef = useRef(null);
 
-  const chosen = useSelector((state) => state.chosen);
+  // const chosen = useSelector((state) => state.chosen);
   const todos = useSelector((state) => state.todos);
   const router = useRouter();
   const dispatch = useDispatch();
 
-  console.log({ chosen });
+  // console.log({ chosen });
 
   console.log({ todos });
 
-  const moveOnItems = (e) => {
+  const handleKeyDown = (e) => {
     console.log(e.key);
-    if (e.key === "Up") {
-      setInd((prev) => prev + 1);
-    }
-    if (e.key === "Down") {
-      setInd((prev) => prev - 1);
+    switch (e.key) {
+      case "ArrowUp":
+        setInd((prev) => (prev > 0 ? prev - 1 : prev));
+        break;
+      case "ArrowDown":
+        setInd((prev) => (prev < todos.length - 1 ? prev + 1 : prev));
+
+        break;
+      case "Enter":
+        updateChosenOne(todos[ind]._id);
+        break;
+
+      default:
+        break;
     }
   };
-
-  useEffect(() => {
-    inputRef.current.addEventListener("keypress", moveOnItems);
-  }, []);
-
-  useEffect(() => {
-    if (todos.length) {
-      dispatch(updateChosen(todos[ind]));
-    }
-  }, [todos, ind]);
 
   const updateChosenOne = (id) => {
     router.push(`/todos/${id}`);
@@ -48,8 +46,8 @@ export default function Filter({}) {
       </div>
       <div className="">
         <input
-          ref={inputRef}
-          className="bg-red-400 w-full"
+          onKeyDown={handleKeyDown}
+          className="focus:bg-red-400 w-full"
           placeholder="find question"
           type="text"
           value={name}
@@ -65,9 +63,7 @@ export default function Filter({}) {
             .filter((todo) => todo.name.includes(name))
             .map((todo, key) => (
               <li
-                className={`${
-                  chosen && chosen?._id === todo._id && "bg-gray-300"
-                }`}
+                className={`${todo._id === todos[ind]._id && "bg-gray-300"}`}
                 key={key}
                 onClick={() => updateChosenOne(todo._id)}
               >
