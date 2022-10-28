@@ -24,7 +24,7 @@ export default function Filter({}) {
         break;
       case "ArrowDown":
         setInd((prev) => (prev < todos.length - 1 ? prev + 1 : prev));
-
+        s;
         break;
       case "Enter":
         updateChosenOne(todos[ind]._id);

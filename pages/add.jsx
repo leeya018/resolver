@@ -28,7 +28,6 @@ export default function Add({}) {
   const router = useRouter();
 
   const inputRef = useRef(null);
-  const addSolButtonRef = useRef(null);
   const { invoke, success, loading, resetFetch, error } = useFetch();
 
   useEffect(() => {
@@ -38,14 +37,11 @@ export default function Add({}) {
     }
   }, []);
 
-  const addItem = (e) => {
+  const addSolutionOnEnter = (e) => {
     if (e.key === "Enter") {
-      addSolButtonRef.current.click();
+      addSolution();
     }
   };
-  useEffect(() => {
-    inputRef.current.addEventListener("keypress", addItem);
-  }, [inputRef]);
 
   const handleClick = async () => {
     if (!name) {
@@ -79,8 +75,6 @@ export default function Add({}) {
   };
 
   const navigate = () => {
-    inputRef.current.removeEventListener("keypress", addItem);
-
     router.push("/todos");
   };
   return (
@@ -110,13 +104,14 @@ export default function Add({}) {
         <label htmlFor="">solution - </label>
         <input
           type="text"
-          value={sol}
           ref={inputRef}
+          value={sol}
+          onKeyDown={addSolutionOnEnter}
           onChange={updateSolution}
           disabled={!name}
         />
+
         <button
-          ref={addSolButtonRef}
           onClick={addSolution}
           disabled={!name}
           className={`${!name || !sol ? "bg-gray-400" : "bg-green-400"} `}
