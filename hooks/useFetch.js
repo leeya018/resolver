@@ -47,8 +47,10 @@ function useFetch() {
       console.log(error);
       setLoading(false);
       setSuccess(false);
-      setError(error.response);
-      throw error;
+      const customError = error.response?.data?.message || error.message;
+      setError(customError);
+      // if I will not throw an error, the code will continue
+      // throw error;
     }
   };
 

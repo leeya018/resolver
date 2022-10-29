@@ -27,12 +27,7 @@ export default function Index() {
 
   return (
     <div className="flex justify-center text-lg">
-      {/* <div className="text-green-500 ">hdenhersnt</div>
-      <div className="text-yellow-500 ">hdenhersnt</div>
-      <div className="text-orange-300 bg-blue-500 ">hdenhersnt</div>
-      <div className="text-purple-800 ">hdenhersnt</div>
-      <div className="text-green-500 ">hdenhersnt</div> */}
-      <div className="w-[50vh] mt-20 ">
+      <div className="w-[50vh] mt-20 shadow-2xl">
         <MyLink location={"/add"} text={"add"} />
         {loading && (
           <div className="text-gray-500 flex justify-center">loading...</div>

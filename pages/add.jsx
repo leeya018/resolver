@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { addTodo, todosError } from "../actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Solutions from "../features/solutions";
 import useFetch from "@/hooks/useFetch";
@@ -26,6 +26,7 @@ export default function Add({}) {
   const dispatch = useDispatch();
   const [todoItem, setTodoItem] = useLocalStorage("todo");
   const router = useRouter();
+  const errorDis = useSelector((state) => state.error);
 
   const inputRef = useRef(null);
   const { invoke, success, loading, resetFetch, error } = useFetch();
@@ -48,6 +49,12 @@ export default function Add({}) {
       dispatch(todosError("todo cannot be empty"));
       return;
     }
+    if (!solutions.length) {
+      dispatch(todosError("you have to have at least one solution"));
+      return;
+    }
+    dispatch(todosError(""));
+
     dispatch(addTodo({ name, solutions }));
     await invoke(methods.POST, `${basicUrl}/api/todos`, { name, solutions });
     setName("");
@@ -57,6 +64,10 @@ export default function Add({}) {
   };
 
   const addSolution = () => {
+    if (!sol) {
+      dispatch(todosError("you have to fill a solution  "));
+      return;
+    }
     setSolutions((prev) => [...prev, sol]);
     setTodoItem({ name, solutions: [...solutions, sol] });
     setSol("");
@@ -66,6 +77,8 @@ export default function Add({}) {
 
   const updateSolution = (e) => {
     console.log(e.target.value);
+    dispatch(todosError(""));
+
     setSol(e.target.value);
   };
 
@@ -87,6 +100,7 @@ export default function Add({}) {
         {loading && <div className="text-gray-500">loading...</div>}
         {success && <div className="text-green-500">done has added to db</div>}
         {error && <div className="text-red-500">{error}</div>}
+        {errorDis && <div className="text-red-500">{errorDis.todos}</div>}
       </div>
       <h1>add item </h1>
       <label htmlFor="">name - </label>
@@ -97,6 +111,8 @@ export default function Add({}) {
           reset();
           dispatch(todosError(""));
           setName(e.target.value);
+          dispatch(todosError(""));
+
           setTodoItem({ name: e.target.value, solutions });
         }}
       />

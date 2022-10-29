@@ -1,6 +1,7 @@
 import dbConnect from "utils/dbConnect";
 import Todo from "@/models/Todo";
 import nc from "next-connect";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 dbConnect();
 const handler = nc({ attachParams: true });
@@ -15,10 +16,16 @@ handler.get(async (req, res) => {
 });
 
 handler.post(async (req, res) => {
+  const foundItem = await Todo.findOne({ name: req.body.name });
+  console.log(foundItem);
+  if (foundItem) {
+    return res.status(400).json({ message: "this todo is allready in system" });
+  }
   try {
     const todo = await Todo.create(req.body);
     res.status(201).json(todo);
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });
