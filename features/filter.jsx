@@ -41,7 +41,7 @@ export default function Filter({}) {
   const handleKeyDownupdateChosenOne = (e) => {
     alert(e.key);
     if (e.key === "Enter") {
-      updateChosenOne(chosen._id);
+      // updateChosenOne(chosen._id);
     }
   };
   return (
@@ -57,19 +57,19 @@ export default function Filter({}) {
           placeholder="Type to search..."
           onChange={(e) => {
             dispatch(todosError(""));
-            // let items = todos.filter((item) => item.name === e.target.value);
-            // if (items.length > 0) {
-            //   dispatch(updateChosen(items[0]._id));
-            // }
+            let items = todos.filter((item) => item.name === e.target.value);
+            if (items.length > 0) {
+              updateChosenOne(items[0]._id);
+            }
             // console.log(e.target);
           }}
         />
-        <datalist id="datalistOptions" onClick={(e) => console.log(e)}>
+        <datalist id="datalistOptions" onChange={(e) => console.log(e)}>
           {todos.map((todo) => (
             <option
               key={todo._id}
               value={todo.name}
-              onSelect={handleKeyDownupdateChosenOne}
+              // onSelect={handleKeyDownupdateChosenOne}
             >
               {/* {todo.name} */}
             </option>
