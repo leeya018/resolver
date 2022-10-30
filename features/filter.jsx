@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { updateChosen } from "../actions";
+import { todosError, updateChosen } from "../actions";
 
 export default function Filter({}) {
   const [name, setName] = useState("");
@@ -37,43 +37,46 @@ export default function Filter({}) {
   const updateChosenOne = (id) => {
     router.push(`/todos/${id}`);
   };
+
+  const handleKeyDownupdateChosenOne = (e) => {
+    alert(e.key);
+    if (e.key === "Enter") {
+      updateChosenOne(chosen._id);
+    }
+  };
   return (
     <div className="">
       <div className=" flex justify-center font-semibold text-blue-500">
         Filter for the data :
       </div>
       <div className="">
-        {/* <input
-          onKeyDown={handleKeyDown}
-          className="form-control font-bold"
-          placeholder="find question"
-          type="text"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        /> */}
-
         <input
           class="form-control"
           list="datalistOptions"
           id="exampleDataList"
           placeholder="Type to search..."
           onChange={(e) => {
-            let item = todos.filter((item) => item.name === e.target.value)[0];
-            updateChosenOne(item._id);
+            dispatch(todosError(""));
+            // let items = todos.filter((item) => item.name === e.target.value);
+            // if (items.length > 0) {
+            //   dispatch(updateChosen(items[0]._id));
+            // }
             // console.log(e.target);
           }}
         />
         <datalist id="datalistOptions" onClick={(e) => console.log(e)}>
           {todos.map((todo) => (
-            <option key={todo._id} value={todo.name}>
+            <option
+              key={todo._id}
+              value={todo.name}
+              onSelect={handleKeyDownupdateChosenOne}
+            >
               {/* {todo.name} */}
             </option>
           ))}
         </datalist>
       </div>
-      <div>
+      {/* <div>
         <h5 className="bg-purple-400 flex items-center">names : </h5>
         <ul>
           {todos
@@ -89,7 +92,7 @@ export default function Filter({}) {
               </li>
             ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }
