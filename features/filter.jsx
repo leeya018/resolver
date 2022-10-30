@@ -76,23 +76,6 @@ export default function Filter({}) {
           ))}
         </datalist>
       </div>
-      {/* <div>
-        <h5 className="bg-purple-400 flex items-center">names : </h5>
-        <ul>
-          {todos
-            .filter((todo) => todo.name.includes(name))
-            .map((todo, key) => (
-              <li
-                // className="bg-gray-300"
-                className={`${todo._id === todos[ind]._id && "bg-gray-400"}`}
-                key={key}
-                onClick={() => updateChosenOne(todo._id)}
-              >
-                {todo.name}
-              </li>
-            ))}
-        </ul>
-      </div> */}
     </div>
   );
 }
