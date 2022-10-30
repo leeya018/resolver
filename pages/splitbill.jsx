@@ -159,9 +159,9 @@ export default function SplitDebts({}) {
           <h2 className="font-bold my-5">who needs to pay to whom:</h2>
         )}
 
-        <ul class="list-group">
+        <ul className="list-group">
           {resDebtsArr.map((p, key) => (
-            <li class="list-group-item" key={key}>
+            <li className="list-group-item" key={key}>
               <span className="font-bold">{p.from}</span>
               <span> should give </span>
               <span className="font-bold">{p.amount}</span>
