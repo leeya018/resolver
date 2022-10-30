@@ -45,7 +45,7 @@ export default function Filter({}) {
       <div className="">
         <input
           onKeyDown={handleKeyDown}
-          className="focus:bg-red-400 w-full font-bold"
+          className="form-control font-bold"
           placeholder="find question"
           type="text"
           value={name}

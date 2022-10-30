@@ -105,6 +105,7 @@ export default function Add({}) {
       <h1>add item </h1>
       <label htmlFor="">name - </label>
       <input
+        className="form-control"
         type="text"
         value={name}
         onChange={(e) => {
@@ -119,6 +120,7 @@ export default function Add({}) {
       <div>
         <label htmlFor="">solution - </label>
         <input
+          className="form-control"
           type="text"
           ref={inputRef}
           value={sol}
@@ -128,14 +130,20 @@ export default function Add({}) {
         />
 
         <button
+          className="btn btn-primary"
           onClick={addSolution}
-          disabled={!name}
-          className={`${!name || !sol ? "bg-gray-400" : "bg-green-400"} `}
+          // disabled={!name}
+          disabled={!name || !sol}
+          // className={`${!name || !sol ? "bg-gray-400" : "bg-green-400"} `}
         >
           add solution
         </button>
       </div>
-      <button onClick={handleClick}>add todo</button>
+      {solutions.length > 0 && (
+        <button className="btn btn-success" onClick={handleClick}>
+          add todo
+        </button>
+      )}
       <Solutions solutions={solutions} />
     </div>
   );

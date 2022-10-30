@@ -25,8 +25,15 @@ export default function Todo({ todo, dispatch }) {
       </div>
       <Solutions solutions={todo.solutions} />
 
-      <button onClick={() => dispatch(toggle(todo._id))}>toggle </button>
-      <button onClick={() => removeTodo(todo._id)}>remove </button>
+      <button
+        className="btn btn-primary"
+        onClick={() => dispatch(toggle(todo._id))}
+      >
+        toggle{" "}
+      </button>
+      <button className="btn btn-primary" onClick={() => removeTodo(todo._id)}>
+        remove{" "}
+      </button>
     </div>
   );
 }

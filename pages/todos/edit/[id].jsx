@@ -69,6 +69,7 @@ export default function Edit({ todoServer }) {
             <div>{name}</div>
             <div>
               <input
+                className="form-control"
                 type="text"
                 placeholder="add solution"
                 ref={inputRef}
@@ -78,24 +79,24 @@ export default function Edit({ todoServer }) {
               />
 
               <button
+                className="btn btn-primary"
+                disabled={!name || !solution}
                 onClick={handleAddSolution}
                 // className={solution && "bg-green-500"}
               >
                 add solution
               </button>
             </div>
-            {solutions.length === 0 && (
-              <button className="bg-red-400" onClick={handleRemoveTodo}>
-                delete todo{" "}
-              </button>
-            )}
 
             <div>
               {solutions.map((solution, ind) => {
                 return (
                   <div key={ind} className="flex gap-2">
-                    <div>{solution}</div>
-                    <button onClick={() => handleRemoveSolution(ind)}>
+                    <p className="flex flex-center items-center ">{solution}</p>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleRemoveSolution(ind)}
+                    >
                       remove
                     </button>
                   </div>

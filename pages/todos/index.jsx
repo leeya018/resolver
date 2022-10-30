@@ -42,7 +42,10 @@ export default function Index() {
         <div className="text-red-400 flex justify-center">{error.todos}</div>
 
         <div>
-          <button onClick={() => setDisplayList((prev) => !prev)}>
+          <button
+            className="btn btn-primary"
+            onClick={() => setDisplayList((prev) => !prev)}
+          >
             {displayList ? "hide" : "show"}
           </button>
           <div>
