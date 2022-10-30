@@ -114,8 +114,9 @@ export default function SplitDebts({}) {
       </div>
       <div className="relative flex flex-col items-center w-[50%] mx-auto">
         <h2 className="font-bold">Debts between friends</h2>
-        <div>
+        <div className="flex flex-col">
           {error && <div className="bg-red-400">{error}</div>}
+
           <input
             type="text"
             name="name"
@@ -124,6 +125,7 @@ export default function SplitDebts({}) {
             placeholder="name"
             ref={nameRef}
             onChange={handleChange}
+            className="form-control"
           />
           <input
             name="amount"
@@ -133,16 +135,22 @@ export default function SplitDebts({}) {
             placeholder="amount"
             ref={amountRef}
             onChange={handleChange}
+            className="form-control"
           />
 
-          <button onClick={handleAddPreson}> add person</button>
+          <button className="btn btn-primary" onClick={handleAddPreson}>
+            {" "}
+            add person
+          </button>
         </div>
         {persons.length >= 2 && (
-          <button onClick={splitDebts}>split debts</button>
+          <button className="btn btn-success" onClick={splitDebts}>
+            split debts
+          </button>
         )}
-        <ul>
+        <ul className="list-group">
           {persons.map((person, key) => (
-            <li key={key}>
+            <li className="list-group-item" key={key}>
               {person.name + " pays " + person.amount + " shekels"}
             </li>
           ))}
@@ -150,9 +158,10 @@ export default function SplitDebts({}) {
         {resDebtsArr.length > 0 && (
           <h2 className="font-bold my-5">who needs to pay to whom:</h2>
         )}
-        <ul>
+
+        <ul class="list-group">
           {resDebtsArr.map((p, key) => (
-            <li key={key}>
+            <li class="list-group-item" key={key}>
               <span className="font-bold">{p.from}</span>
               <span> should give </span>
               <span className="font-bold">{p.amount}</span>

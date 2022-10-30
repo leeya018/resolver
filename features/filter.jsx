@@ -40,13 +40,12 @@ export default function Filter({}) {
   return (
     <div className="">
       <div className=" flex justify-center font-semibold text-blue-500">
-        {" "}
-        Filter for the data :{" "}
+        Filter for the data :
       </div>
       <div className="">
         <input
           onKeyDown={handleKeyDown}
-          className="focus:bg-red-400 w-full"
+          className="focus:bg-red-400 w-full font-bold"
           placeholder="find question"
           type="text"
           value={name}
