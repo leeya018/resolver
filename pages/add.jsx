@@ -27,6 +27,7 @@ export default function Add({}) {
   const [todoItem, setTodoItem] = useLocalStorage("todo");
   const router = useRouter();
   const errorDis = useSelector((state) => state.error);
+  const todos = useSelector((state) => state.todos);
 
   const inputRef = useRef(null);
   const { invoke, success, loading, resetFetch, error } = useFetch();
@@ -90,6 +91,10 @@ export default function Add({}) {
   const navigate = () => {
     router.push("/todos");
   };
+
+  const checkIfNameExists = (name) => {
+    return todos.filter((todo) => todo.name === name).length > 0;
+  };
   return (
     <div>
       <div className="text-purple-500" onClick={navigate}>
@@ -112,7 +117,11 @@ export default function Add({}) {
           reset();
           dispatch(todosError(""));
           setName(e.target.value);
-          dispatch(todosError(""));
+          if (checkIfNameExists(e.target.value)) {
+            dispatch(todosError("todo is already in the database"));
+          } else {
+            dispatch(todosError(""));
+          }
 
           setTodoItem({ name: e.target.value, solutions });
         }}

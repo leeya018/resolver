@@ -43,7 +43,7 @@ export default function Filter({}) {
         Filter for the data :
       </div>
       <div className="">
-        <input
+        {/* <input
           onKeyDown={handleKeyDown}
           className="form-control font-bold"
           placeholder="find question"
@@ -52,7 +52,26 @@ export default function Filter({}) {
           onChange={(e) => {
             setName(e.target.value);
           }}
+        /> */}
+
+        <input
+          class="form-control"
+          list="datalistOptions"
+          id="exampleDataList"
+          placeholder="Type to search..."
+          onChange={(e) => {
+            let item = todos.filter((item) => item.name === e.target.value)[0];
+            updateChosenOne(item._id);
+            // console.log(e.target);
+          }}
         />
+        <datalist id="datalistOptions" onClick={(e) => console.log(e)}>
+          {todos.map((todo) => (
+            <option key={todo._id} value={todo.name}>
+              {/* {todo.name} */}
+            </option>
+          ))}
+        </datalist>
       </div>
       <div>
         <h5 className="bg-purple-400 flex items-center">names : </h5>
